@@ -1,0 +1,14 @@
+---
+- name: Setup Web Server Project
+  hosts: all          
+  remote_user: ubuntu      
+  become: yes
+
+  roles:
+    - handlers
+  
+  handlers:
+   - name: Restart Nginx
+     service:
+      name: nginx
+      state: restarted
