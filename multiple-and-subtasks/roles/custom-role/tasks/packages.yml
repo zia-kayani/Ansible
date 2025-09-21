@@ -1,0 +1,10 @@
+---
+- name: install the nginx, git and curl packages
+  become: yes
+  ansible.builtin.apt:
+    name:
+      - nginx
+      - git
+      - curl
+    state: latest
+    update_cache: yes

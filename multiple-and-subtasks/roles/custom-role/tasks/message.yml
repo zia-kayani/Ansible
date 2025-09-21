@@ -1,0 +1,5 @@
+---
+- name: set message file
+  ansible.builtin.copy:
+    content: "{{ message }}"
+    dest: /var/www/html/index.html

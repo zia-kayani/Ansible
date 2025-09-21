@@ -1,0 +1,9 @@
+---
+- name: Setup Web Server Project
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+
+  roles:
+    - custom-role
+    - install-apache2
