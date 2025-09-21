@@ -4,9 +4,6 @@
   remote_user: ubuntu      
   become: yes
 
-
-
-
   vars:
     main_playbook_var: "Hello world from Ansible !!"
 
@@ -31,7 +28,6 @@
         fruits:
           - orange
           - banana
-
 
   vars_files:
     - my_vars.yml

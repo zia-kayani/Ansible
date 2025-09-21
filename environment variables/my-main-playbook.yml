@@ -1,0 +1,22 @@
+---
+- name: Setup Web Server Project
+  hosts: all          
+  remote_user: ubuntu      
+  become: yes
+
+
+  environment:
+    my_var1: "My  global var1"
+    my_var2: "my global var2"
+
+  tasks:
+    - name: Access global variable
+      ansible.builtin.command: "echo $my_var1"
+    
+    - name: createe local variable and access that
+      environment:
+        my_local_var: "my task local var"
+      ansible.builtin.command: "echo $my_local_var"
+    
+    - name: accessing both vars global + local of above task
+      ansible.builtin.command: "echo $my_var1 $my_local_var"
