@@ -1,0 +1,86 @@
+---
+- name: Setup Web Server Project
+  hosts: all          
+  remote_user: ubuntu      
+  become: yes
+
+
+
+
+  vars:
+    main_playbook_var: "Hello world from Ansible !!"
+
+    is_enabled: true
+
+    fruits:
+      - apple
+      - banana
+      - orange
+    
+    furit_prices:
+      apple: 0.4
+      banana: 0.8
+      orange: 0.99
+
+    fruit_basket:
+      - name: john
+        fruits:
+          - apple
+          - banana
+      - name: zia
+        fruits:
+          - orange
+          - banana
+
+
+  vars_files:
+    - my_vars.yml
+
+
+  tasks:
+    - name: String variable - main main_playbook_var
+      debug:
+        var: main_playbook_var
+  
+    - name: boolean varible testing 
+      debug:
+        msg: is true 
+      when: is_enabled
+
+    - name: getting the list of fruites
+      debug:
+        var: fruits
+
+    - name: getting specific index value of fruit list
+      debug:
+        var: fruits[0]
+    
+    - name: getting the dictionay values of fruit
+      debug:
+        var: furit_prices
+
+
+    - name:  gett the fruit value from dictionay and assign to any variable
+      command: echo "{{furit_prices['apple']}}"
+      register: apple_price_as_registered_var
+    
+    - name: now show the value stored inthe register variable 
+      debug:
+        var: apple_price_as_registered_var.stdout
+
+    - name: access teh nested fruit apple and with that price of apple from fruites furit_prices
+      debug:
+        var: furit_prices[fruit_basket[0].fruits[0]]
+
+    - name: To convert your furit_prices keys into uppercase
+      debug:
+        var: furit_prices.keys() | list | map("upper") | list
+
+    - name: vaiable from vars file 
+      debug:
+        var: my_vars_file_variable
+
+    - name: variabel passed from run time 
+      debug:
+        var: version
+    
