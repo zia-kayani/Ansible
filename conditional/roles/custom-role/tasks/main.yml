@@ -1,0 +1,33 @@
+---
+- name: install the apache2 on remote Server
+  apt:
+    name: apache2
+    state: absent
+  when: apache_condition
+
+- name: to see the kernel version with multiple conditions
+  debug:
+    var: ansible_kernel
+  when:
+    - ansible_os_family == "Debian"
+    - ansible_distribution_major_version == "22"
+
+- name: to see the kernel version with multiple conditions
+  debug:
+    var: ansible_kernel
+  when:
+    - ansible_os_family == "Debian" and ansible_distribution_major_version == "22"
+
+- name: to read the remote file on server content and save to variable 
+  ansible.builtin.command: cat /home/ubuntu/zia.txt
+  register: file_content_var
+
+- name: to show the content in file_content_var variable based on conditions
+  debug:
+    var: file_content_var.stdout
+  when: file_content_var.stdout.find('hi') != -1
+
+- name: echo items from loop based on condition
+  ansible.builtin.command: echo {{ item }}
+  loop: [0,2,4,6,8,10,12]
+  when: item > 5
