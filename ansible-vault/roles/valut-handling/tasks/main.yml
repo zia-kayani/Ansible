@@ -1,0 +1,4 @@
+---
+- name: accessing the first valut variable
+  debug:
+    var: my_secret
