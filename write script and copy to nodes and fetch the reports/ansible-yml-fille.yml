@@ -1,0 +1,41 @@
+---
+- hosts: all
+  gather_facts: yes
+  tasks:
+  - name: Removing the python script file from the remote nodes
+    file:
+      path: /home/zia/my_script.py
+      state: absent
+  - name: Removing the json file from the remote nodes
+    file:
+      path: /home/zia/my_json.json
+      state: absent
+
+  - name: Removing the report csv file from the remote nodes
+    file:
+      path: /home/zia/daily_report.csv
+      state: absent
+  - name : copying the python script file to remote nodes 
+    copy:
+      src: /home/zia/my_script.py
+      dest: /home/zia/my_script.py
+      mode: 0755
+      owner: zia
+      group: zia
+
+  - name: copy the json file to remote nodes
+    copy:
+      src: /home/zia/my_json.json
+      dest: /home/zia/my_json.json
+      mode: 0755
+      owner: zia
+      group: zia
+
+  - name: Runing the script on the remote node 
+    command: /home/zia/my_script.py 
+    
+  - name: fetch the report from remote nodes to the master server
+    fetch:
+      src: /home/zia/daily_report.csv
+      dest: /home/zia/reports/daily_report_{{ inventory_hostname }}_{{ ansible_date_time.minute }}.csv
+      flat: yes

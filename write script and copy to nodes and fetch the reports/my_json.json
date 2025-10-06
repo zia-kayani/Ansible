@@ -1,0 +1,7 @@
+{
+    "headers_pars": ["hostname", "IP Address", "storage details"],
+    "hostname": "hostname | tr -d '\\n'",
+    "ip_address": "hostname -i | tr -d '\\n'",
+    "os_flavour": "cat /etc/*-release | grep -iw ID | awk -F= '{print $2}' | tr -d '\"\\n'",
+    "df_details": "df -h | grep -v 'tmpfs'"
+}
